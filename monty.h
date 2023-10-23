@@ -1,13 +1,13 @@
 #ifndef MONTY_H
 #define MONTY_H
 
+#define _GNU_SOURCE
 #include <stdio.h>
-#include <stdlib.h>
-#include <sys/types.h>
 #include <unistd.h>
-#include <fcntl.h>
 #include <string.h>
+#include <stdlib.h>
 #include <ctype.h>
+#include <stdarg.h>
 
 /**
  * struct stack_s - doubly linked list representation of a stack (or queue)
@@ -39,7 +39,38 @@ typedef struct instruction_s
         void (*f)(stack_t **stack, unsigned int line_number);
 } instruction_t;
 
-void push(int *stack_t, int *top, const char *arg, unsigned int line_number);
-void pall(const int *stack, int top);
+stack_t *create_node(int n);
+void free_nodes(void);
+void add(stack_t **, unsigned int);
+void push(stack_t **, unsigned int);
+void pall(stack_t **, unsigned int);
+
+void call_fun(op_func, char *, char *, int, int);
+
+void pint(stack_t **, unsigned int);
+void pop(stack_t **, unsigned int);
+void nop(stack_t **, unsigned int);
+void swap(stack_t **, unsigned int);
+
+void add(stack_t **, unsigned int);
+void sub(stack_t **, unsigned int);
+void div(stack_t **, unsigned int);
+void mul(stack_t **, unsigned int);
+void mod(stack_t **, unsigned int);
+
+void pchar(stack_t **, unsigned int);
+void pstr(stack_t **, unsigned int);
+void rotl(stack_t **, unsigned int);
+
+void err(int error_code, ...);
+void more_err(int error_code, ...);
+void string_err(int error_code, ...);
+void rotr(stack_t **, unsigned int);
+
+void open_file(char *file_name);
+int parse_line(char *buffer, int line_number, int format);
+void read_file(FILE *);
+int len_chars(FILE *);
+void find_func(char *, char *, int, int);
 
 #endif
